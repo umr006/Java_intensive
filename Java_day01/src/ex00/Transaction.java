@@ -1,64 +1,90 @@
 package ex00;
 
-import java.util.UUID;
-
+import java.util.*;
 public class Transaction {
-    private UUID Identifier;
-    private User Recipient;
-    private User Sender;
-    private TransferCategory Category;
-    private double TransferAmount;
+    private UUID uuid;
+    private User sender;
+    private User recipient;
+    private TransactionCategory category;
+    private double amount;
 
-    enum TransferCategory {
-        DEBIT, CREDIT
+    enum TransactionCategory {
+        DEBIT,
+        CREDIT
     }
 
-    public Transaction(UUID Identifier, User Recipient, User Sender, TransferCategory Category, double TransferAmount) {
-        if ()
+    public Transaction(User sender, User recipient, TransactionCategory cat, double amount) {
+        this.uuid = setUuid();
+        setSender(sender);
+        setRecipient(recipient);
+        this.category = cat;
+        setTransactionAmount(amount);
+        TransactionProcess(sender, recipient, amount);
     }
 
-    public UUID getIdentifier() {
-        return Identifier;
-    }
-
-    public void setIdentifier(UUID identifier) {
-        Identifier = UUID.randomUUID();
-    }
-
-    public User getRecipient() {
-        return Recipient;
+    public UUID setUuid() {
+         return UUID.randomUUID();
     }
 
     public void setRecipient(User recipient) {
-        Recipient = recipient;
+        try{
+            if (recipient.getBalance() >= 0)
+                this.recipient = recipient;
+            else
+                throw new IllegalArgumentException("The balance cannot be less zero!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("The balance cannot be less zero!");
+        }
     }
 
-    public User getSender() {
-        return Sender;
+    public void setSender(User sender){
+        try{
+            if (sender.getBalance() >= 0)
+                this.sender = sender;
+            else
+                throw new IllegalArgumentException("The balance cannot be less zero!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("The balance cannot be less zero!");
+        }
     }
 
-    public void setSender(User sender) {
-        Sender = sender;
+    public void setTransactionAmount(double amount) {
+        try {
+            if ((amount > 0 && this.category == TransactionCategory.DEBIT) || (amount < 0 && this.category == TransactionCategory.CREDIT)) {
+                this.amount = amount;
+            } else {
+                throw new IllegalArgumentException("The transfer amount does not match the type");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            System.exit(-1);
+        }
     }
 
-    public TransferCategory getCategory() {
-        return Category;
+    public void TransactionProcess(User sender, User recipient, Double amount) {
+        try {
+            if ((sender.getBalance() < amount && this.category == TransactionCategory.DEBIT) || (sender.getBalance() < -amount && this.category == TransactionCategory.CREDIT)) {
+                throw new IllegalArgumentException("The transfer amount cannot be less sender balance");
+            } else {
+                sender.setBalance(sender.getBalance() - amount);
+                recipient.setBalance(recipient.getBalance() + amount);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void setCategory(TransferCategory category) {
-        Category = category;
-    }
-
-    public double getTransferAmount() {
-        return TransferAmount;
-    }
-
-    public void setTransferAmount(double transferAmount) {
-        TransferAmount = transferAmount;
+    @Override
+    public String toString() {
+        return "Transaction(" + uuid + ")" +
+                "{"
+                + sender
+                + " ==>("
+                + amount
+                + ") "
+                + recipient
+                + " with category - "
+                + category
+                + "}";
     }
 }
-
-
-
-
-
