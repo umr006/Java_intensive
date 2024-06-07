@@ -37,7 +37,6 @@ public class User {
     }
 
     public void setBalance(double balance) {
-
         try {
             if (balance > 0) {
                 this.balance = balance;
@@ -47,5 +46,9 @@ public class User {
         } catch (IllegalAccessError e) {
             System.out.println(e.getMessage());
         }
+    }
+    @Override
+    public String toString() {
+        return name + "(id - " + id + "){" + "Balance: " + balance + "}";
     }
 }
