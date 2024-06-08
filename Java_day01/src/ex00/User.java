@@ -1,10 +1,6 @@
 package ex00;
 import java.util.Scanner;
-//Таким образом, следующий набор состояний (полей) является типичным для класса User:
-//
-//        Идентификатор
-//        Имя
-//        Баланс
+
 public class User {
     private int id;
     private String name;
@@ -39,7 +35,7 @@ public class User {
     public void setBalance(double balance) {
 
         try {
-            if (balance > 0) {
+            if (balance >= 0) {
                 this.balance = balance;
             } else {
                 throw new IllegalAccessError("The balance cannot be less zero!");

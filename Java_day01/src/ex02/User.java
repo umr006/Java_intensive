@@ -1,4 +1,4 @@
-package ex01;
+package ex02;
 
 import java.util.Scanner;
 
@@ -45,5 +45,10 @@ public class User {
         } catch (IllegalAccessError e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        return name + " id = " + id + " balance = " + balance;
     }
 }
