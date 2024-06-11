@@ -43,23 +43,25 @@ public class TransactionsLinkedList {
         void removeTransactionById(Transaction transaction) {
         //nodeList tmp = currentNode;
         boolean isFound = false;
-        for(nodeList i = currentNode; i.nodeListPrev != null; ) {
+        for(nodeList i = currentNode; i != null; ) {
             if (i.transaction.getIdentifier() == transaction.getIdentifier()) {
                 isFound = true;
-                if (i.nodeListNext != null && i.nodeListNext != null) {
+                if (i.nodeListNext != null && i.nodeListPrev != null) {
                     i.nodeListPrev.nodeListNext = i.nodeListNext;
                     i.nodeListNext.nodeListPrev = i.nodeListPrev;
-                } else if (i.nodeListNext == null && i.nodeListNext == null) {
+                } else if (i.nodeListNext == null && i.nodeListPrev == null) {
                     i = null;
                 } else if (i.nodeListPrev == null) {
                     i.nodeListNext.nodeListPrev = null;
                 } else if (i.nodeListNext == null) {
                     i.nodeListPrev.nodeListNext = null;
+                    currentNode = i.nodeListPrev;
                 }
-                i = i.nodeListPrev;
                 cntTransaction--;
             }
+           i = i.nodeListPrev;
         }
+            System.out.println(currentNode.transaction.getIdentifier());
         if (!isFound) throw new TransactionNotFoundException("UUID does not exist");
     }
 
