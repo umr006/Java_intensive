@@ -3,7 +3,7 @@ package ex04;
 
 public class UserArrayList implements UserList {
     private int userArraySize = 10;
-    private User[] userArray = new User[userArraySize];
+    public User[] userArray = new User[userArraySize];
     private int capacity = 0;
 
     public class UserNotFoundException extends RuntimeException {

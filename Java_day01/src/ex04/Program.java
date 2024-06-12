@@ -9,12 +9,19 @@ public class Program {
 
         facede.addUser(aboba);
         facede.addUser(qwerty);
+        System.out.println(facede.userArray[1]);
+        //System.out.println(facede.userArray.retrieve);
 
-        System.out.println(facede.userArray.retrieve);
+        //facede.transferInit(aboba.getId(), qwerty.getId(), 500);
+//        System.out.println(aboba.getBalance());
+//        System.out.println(qwerty.getBalance());
+//
+//        System.out.println(facede.getUserBalance(aboba));
+//        System.out.println(facede.getUserBalance(qwerty));
+//
+//        System.out.println(facede.userArray.retrieveUserById(qwerty.getId()));
+//        System.out.println(aboba);
 
-        facede.transferInit(aboba.getId(), qwerty.getId(), 500);
-        System.out.println(aboba.getBalance());
-        System.out.println(qwerty.getBalance());
 
     }
 }
