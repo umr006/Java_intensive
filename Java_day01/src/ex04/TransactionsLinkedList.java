@@ -1,4 +1,6 @@
-package ex03;
+package ex04;
+
+import java.util.UUID;
 
 public class TransactionsLinkedList {
     private static class nodeList {
@@ -40,11 +42,11 @@ public class TransactionsLinkedList {
         cntTransaction++;
     }
 
-        void removeTransactionById(Transaction transaction) {
+        void removeTransactionById(UUID transId) {
         //nodeList tmp = currentNode;
         boolean isFound = false;
         for(nodeList i = currentNode; i != null; ) {
-            if (i.transaction.getIdentifier() == transaction.getIdentifier()) {
+            if (i.transaction.getIdentifier().equals(transId)) {
                 isFound = true;
                 if (i.nodeListNext != null && i.nodeListPrev != null) {
                     i.nodeListPrev.nodeListNext = i.nodeListNext;

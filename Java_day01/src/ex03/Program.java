@@ -19,7 +19,6 @@ public class Program {
         Mark.addTransactionInList(two);
         Mark.addTransactionInList(three);
         Mark.addTransactionInList(four);
-        Mark.removeTransactionInList(two);
         System.out.println(Mark.list.cntTransaction);
         array = Mark.list.toArray();
 
@@ -27,6 +26,14 @@ public class Program {
             System.out.println(value);
             System.out.print(" ");
         }
+        Mark.list.removeTransactionById(four);
+        Mark.list.addTransaction(five);
+        array = Mark.list.toArray();
+        for (Transaction value : array) {
+            System.out.println(value);
+            System.out.print(" ");
+        }
+        //System.out.println(Mark.list.currentNode.tra);
         System.out.println();
     }
 }
