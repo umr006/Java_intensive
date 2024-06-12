@@ -5,6 +5,9 @@ import java.util.UUID;
 public class TransactionsService {
     UserArrayList userArray = new UserArrayList();
 
+    public void addUser(User user) {
+        userArray.addUser(user);
+    }
     public void addUser(String name, double balance) {
         userArray.addUser(name, balance);
     }

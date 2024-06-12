@@ -30,6 +30,12 @@ public class UserArrayList implements UserList {
         userArray = newUserArray;
     }
 
+    public void addUser(User user) {
+        userArray[capacity++] = user;
+        if(capacity == userArray.length) {
+            resize();
+        }
+    }
     public void addUser(String name) {
         User newUser = new User(name, 0);
         userArray[capacity++] = newUser;
