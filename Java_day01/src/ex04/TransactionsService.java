@@ -3,13 +3,13 @@ package ex04;
 import java.util.UUID;
 
 public class TransactionsService {
-    UserArrayList userArray = new UserArrayList();
+    UserArrayList userArrayTransService = new UserArrayList();
 
     public void addUser(User user) {
-        userArray.addUser(user);
+        userArrayTransService.addUser(user);
     }
     public void addUser(String name, double balance) {
-        userArray.addUser(name, balance);
+        userArrayTransService.addUser(name, balance);
     }
 
     public double getUserBalance(User user) {
@@ -18,11 +18,11 @@ public class TransactionsService {
 
     public UUID transferInit(int idSender, int idRepicient, double transAmount) {
         UUID id = UUID.randomUUID();
-        Transaction senderTrans = new Transaction(id, userArray.retrieveUserById(idSender), userArray.retrieveUserById(idRepicient), Transaction.TransferCategory.CREDIT, transAmount);
-        Transaction repicientTrans = new Transaction(id, userArray.retrieveUserById(idSender), userArray.retrieveUserById(idRepicient), Transaction.TransferCategory.DEBIT, -transAmount);
+        Transaction senderTrans = new Transaction(id, userArrayTransService.retrieveUserById(idSender), userArrayTransService.retrieveUserById(idRepicient), Transaction.TransferCategory.CREDIT, transAmount);
+        Transaction repicientTrans = new Transaction(id, userArrayTransService.retrieveUserById(idSender), userArrayTransService.retrieveUserById(idRepicient), Transaction.TransferCategory.DEBIT, -transAmount);
 
-        userArray.retrieveUserById(idSender).addTransactionInList(senderTrans);
-        userArray.retrieveUserById(idRepicient).addTransactionInList(repicientTrans);
+        userArrayTransService.retrieveUserById(idSender).addTransactionInList(senderTrans);
+        userArrayTransService.retrieveUserById(idRepicient).addTransactionInList(repicientTrans);
         return id;
     }
 
@@ -31,11 +31,11 @@ public class TransactionsService {
     }
 
     public Transaction[] retrieveTrans(int idUser) {
-        return userArray.retrieveUserById(idUser).list.toArray();
+        return userArrayTransService.retrieveUserById(idUser).list.toArray();
     }
 
     public void removeTransaction(int idUser, UUID idTransaction) {
-        userArray.retrieveUserById(idUser).removeTransactionInList(idTransaction);
+        userArrayTransService.retrieveUserById(idUser).removeTransactionInList(idTransaction);
     }
 
     public Transaction[] validTransaction(User user) {
