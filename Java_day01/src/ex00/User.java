@@ -1,15 +1,22 @@
 package ex00;
-import java.util.Scanner;
 
 public class User {
     private int id;
     private String name;
     private double balance;
 
-    public User(int id, String name, double balance) {
+    public User() {
+
+    }
+
+    public User(int id, String name, double balance) throws IllegalArgumentException {
         setId(id);
         setName(name);
-        setBalance(balance);
+        try {
+            setBalance(balance);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public int getId() {
@@ -32,16 +39,10 @@ public class User {
         return balance;
     }
 
-    public void setBalance(double balance) {
-
-        try {
-            if (balance >= 0) {
-                this.balance = balance;
-            } else {
-                throw new IllegalAccessError("The balance cannot be less zero!");
-            }
-        } catch (IllegalAccessError e) {
-            System.out.println(e.getMessage());
+    public void setBalance(double balance) throws IllegalArgumentException {
+        if (balance < 0) {
+            throw new IllegalArgumentException("Balance cannot be less zero!");
         }
+        this.balance = balance;
     }
 }

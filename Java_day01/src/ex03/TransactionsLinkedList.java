@@ -1,81 +1,76 @@
 package ex03;
 
-public class TransactionsLinkedList {
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.util.TreeMap;
+import java.util.UUID;
+
+public class TransactionsLinkedList implements TransactionsList {
     private static class nodeList {
         private Transaction transaction;
         private nodeList nodeListNext;
         private nodeList nodeListPrev;
 
-        nodeList() {
+        public nodeList() {
             transaction = null;
             nodeListNext = null;
             nodeListPrev = null;
         }
 
-        nodeList(Transaction transaction, nodeList nodeListNext, nodeList nodeListPrev) {
+        public nodeList(Transaction transaction, nodeList next, nodeList prev) {
             this.transaction = transaction;
-            this.nodeListNext = nodeListNext;
-            this.nodeListPrev = nodeListPrev;
-        }
-    }
-
-    public static class TransactionNotFoundException extends RuntimeException {
-        public TransactionNotFoundException(String errMessage) {
-            super(errMessage);
+            nodeListNext = next;
+            nodeListPrev = prev;
         }
     }
 
     nodeList currentNode = new nodeList();
     int cntTransaction = 0;
-
-    void addTransaction(Transaction transaction) {
+    public void addTransaction(Transaction transaction) {
         if (currentNode.transaction == null) {
             currentNode.transaction = transaction;
         } else {
             nodeList newNode = new nodeList(transaction, null, currentNode);
-            //currentNode.nodeListNext = newNode; the line below
-            newNode.nodeListPrev.nodeListNext = newNode;
             currentNode = newNode;
         }
         cntTransaction++;
     }
 
-        void removeTransactionById(Transaction transaction) {
-        //nodeList tmp = currentNode;
+    public void removeTransactionById(UUID id) {
         boolean isFound = false;
-        for(nodeList i = currentNode; i != null; ) {
-            if (i.transaction.getIdentifier() == transaction.getIdentifier()) {
+        for (nodeList i = currentNode; i.nodeListPrev != null; ) {
+            if (i.transaction.getId() == id) {
                 isFound = true;
-                if (i.nodeListNext != null && i.nodeListPrev != null) {
+                if (i.nodeListPrev != null && i.nodeListNext != null) {
                     i.nodeListPrev.nodeListNext = i.nodeListNext;
                     i.nodeListNext.nodeListPrev = i.nodeListPrev;
-                } else if (i.nodeListNext == null && i.nodeListPrev == null) {
+                } else if (i.nodeListPrev == null && i.nodeListNext == null) {
                     i = null;
-                } else if (i.nodeListPrev == null) {
-                    i.nodeListNext.nodeListPrev = null;
                 } else if (i.nodeListNext == null) {
                     i.nodeListPrev.nodeListNext = null;
-                    currentNode = i.nodeListPrev;
+                } else if (i.nodeListPrev == null) {
+                    i.nodeListNext.nodeListPrev = null;
                 }
                 cntTransaction--;
+                break;
             }
-           i = i.nodeListPrev;
+            i = i.nodeListPrev;
         }
-            System.out.println(currentNode.transaction.getIdentifier());
-        if (!isFound) throw new TransactionNotFoundException("UUID does not exist");
+        if (!isFound) {
+            throw new TransactionNotFoundException("ID is not exists");
+        }
     }
 
     public Transaction[] toArray() {
-        Transaction[] transactionsArray = new Transaction[cntTransaction];
-        nodeList tmpNode = currentNode;
-        for(int i = cntTransaction - 1; i >= 0; i--) {
-            transactionsArray[i] = tmpNode.transaction;
-            tmpNode = tmpNode.nodeListPrev;
+        Transaction[] arrayTransaction = new Transaction[cntTransaction];
+        nodeList tmpCurrentNode = currentNode;
+        int i = 0;
+        while(tmpCurrentNode.nodeListPrev != null) {
+            arrayTransaction[i] = tmpCurrentNode.transaction;
+            tmpCurrentNode = tmpCurrentNode.nodeListPrev;
+            i++;
         }
-        return transactionsArray;
+        return arrayTransaction;
     }
 }
-
-
-
-

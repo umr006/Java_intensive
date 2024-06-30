@@ -1,7 +1,7 @@
 package ex03;
 
 public interface TransactionsList {
-    void addTransaction(Transaction transaction);
-    void removeTransactionById(String UUID);
+    void addTransaction();
+    void removeTransactionById();
     Transaction[] toArray();
 }

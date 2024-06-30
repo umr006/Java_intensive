@@ -1,13 +1,11 @@
-package ex03;
-
-
+package ex01;
 import java.util.UUID;
 
 public class Transaction {
     private UUID id;
     private User recipient;
     private User sender;
-    private transferCategory type;
+    private Transaction.transferCategory type;
     private double transferAmount;
 
     enum transferCategory {
@@ -15,7 +13,7 @@ public class Transaction {
         DEBIT
     }
 
-    public Transaction(User sender, User recipient, transferCategory type, double transferAmount) {
+    public Transaction(User sender, User recipient, Transaction.transferCategory type, double transferAmount) {
         setId();
         setRecipient(recipient);
         setSender(sender);
@@ -48,11 +46,11 @@ public class Transaction {
         this.sender = sender;
     }
 
-    public transferCategory getType() {
+    public Transaction.transferCategory getType() {
         return type;
     }
 
-    public void setType(transferCategory type) {
+    public void setType(Transaction.transferCategory type) {
         this.type = type;
     }
 
@@ -62,7 +60,7 @@ public class Transaction {
 
     public void setTransferAmount(double transferAmount) throws IllegalArgumentException {
         try {
-            if (transferCategory.DEBIT == type && transferAmount < 0 || transferCategory.CREDIT == type && transferAmount > 0) {
+            if (Transaction.transferCategory.DEBIT == type && transferAmount < 0 || Transaction.transferCategory.CREDIT == type && transferAmount > 0) {
                 throw new IllegalArgumentException("Not correct amount!");
             } else {
                 this.transferAmount = transferAmount;

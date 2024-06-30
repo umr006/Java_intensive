@@ -2,41 +2,16 @@ package ex02;
 
 public class Program {
     public static void main(String[] args) {
-        UserArrayList userArr = new UserArrayList();
+        User user1 = new User("foo", 400);
+        User user2 = new User("foo1", 500);
+        UsersArrayList arr = new UsersArrayList();
+        arr.addUser(user1);
+        arr.addUser(user2);
+        Transaction trn1 = new Transaction(user1, user2, Transaction.transferCategory.DEBIT, 200);
 
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
-        userArr.addUser("1");
-        userArr.addUser("2");
-        userArr.addUser("3");
-        userArr.addUser("4");
 
-        userArr.printUserList();
+        for(int i = 0; i < arr.retrieveNumberOfUsers(); i++) {
+            System.out.println(arr.retrieveUserByIndex(i));
+        }
     }
 }

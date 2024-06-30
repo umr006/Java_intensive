@@ -2,10 +2,11 @@ package ex01;
 
 public class Program {
     public static void main(String[] args) {
-        User user1 = new User("ALEX", 2000);
-        User user2 = new User("BOB", 2345);
+        User user1 = new User("foo", 400);
+        User user2 = new User("foo1", 500);
 
-        System.out.printf("%d %s %f", user1.getId(), user1.getName(), user1.getBalance());
-        System.out.printf("\n%d %s %f", user2.getId(), user2.getName(), user2.getBalance());
+        System.out.println(user1.getId());
+        System.out.println(user2.getId());
+        System.out.println(user2.getId());
     }
 }

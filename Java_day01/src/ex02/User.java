@@ -1,24 +1,29 @@
 package ex02;
 
-import java.util.Scanner;
-
 public class User {
     private int id;
     private String name;
     private double balance;
 
-    //UserIdsGenerator UserIdsGenerator;
-    public User(String name, double balance) {
-        setId(id);
+    public User() {
+
+    }
+
+    public User(String name, double balance) throws IllegalArgumentException {
+        setId();
         setName(name);
-        setBalance(balance);
+        try {
+            setBalance(balance);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
+    //method is private
+    private void setId() {
         this.id = UserIdsGenerator.getInstance().generateId();
     }
 
@@ -34,21 +39,15 @@ public class User {
         return balance;
     }
 
-    public void setBalance(double balance) {
-
-        try {
-            if (balance >= 0) {
-                this.balance = balance;
-            } else {
-                throw new IllegalAccessError("The balance cannot be less zero!");
-            }
-        } catch (IllegalAccessError e) {
-            System.out.println(e.getMessage());
+    public void setBalance(double balance) throws IllegalArgumentException {
+        if (balance < 0) {
+            throw new IllegalArgumentException("Balance cannot be less zero!");
         }
+        this.balance = balance;
     }
 
     @Override
     public String toString() {
-        return name + " id = " + id + " balance = " + balance;
+        return "User{id=" + id + ", name='" + name + ", balance=" + balance + "'}";
     }
 }

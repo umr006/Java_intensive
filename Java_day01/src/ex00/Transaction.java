@@ -3,88 +3,78 @@ package ex00;
 import java.util.UUID;
 
 public class Transaction {
-    private UUID Identifier;
-    private User Recipient;
-    private User Sender;
-    private TransferCategory Category;
-    private double TransferAmount;
+    private UUID id;
+    private User recipient;
+    private User sender;
+    private transferCategory type;
+    private double transferAmount;
 
-    enum TransferCategory {
-        DEBIT, CREDIT
+    enum transferCategory {
+        CREDIT,
+        DEBIT
     }
 
-    public Transaction(User Sender, User Recipient, TransferCategory Category, double TransferAmount) throws IllegalArgumentException {
-        setIdentifier();
-        setSender(Sender);
-        setRecipient(Recipient);
-        setCategory(Category);
-        Transfer(Sender, Recipient, TransferAmount);
+    public Transaction(User sender, User recipient, transferCategory type, double transferAmount) {
+        setId();
+        setRecipient(recipient);
+        setSender(sender);
+        setType(type);
+        setTransferAmount(transferAmount);
+        initTransaction(sender, recipient, transferAmount);
     }
 
-    public UUID getIdentifier() {
-        return Identifier;
+    public UUID getId() {
+        return id;
     }
 
-    public void setIdentifier() {
-        Identifier = UUID.randomUUID();
+    public void setId() {
+        this.id = UUID.randomUUID();
     }
 
     public User getRecipient() {
-        return Recipient;
+        return recipient;
     }
 
     public void setRecipient(User recipient) {
-        Recipient = recipient;
+        this.recipient = recipient;
     }
 
     public User getSender() {
-        return Sender;
+        return sender;
     }
 
     public void setSender(User sender) {
-        Sender = sender;
+        this.sender = sender;
     }
 
-    public TransferCategory getCategory() {
-        return Category;
+    public transferCategory getType() {
+        return type;
     }
 
-    public void setCategory(TransferCategory category) {
-        Category = category;
+    public void setType(transferCategory type) {
+        this.type = type;
     }
 
     public double getTransferAmount() {
-        return TransferAmount;
+        return transferAmount;
     }
 
     public void setTransferAmount(double transferAmount) throws IllegalArgumentException {
         try {
-            if(transferAmount > 0) {
-                this.TransferAmount = transferAmount;
+            if (transferCategory.DEBIT == type && transferAmount < 0 || transferCategory.CREDIT == type && transferAmount > 0) {
+                throw new IllegalArgumentException("Not correct amount!");
             } else {
-                throw new IllegalArgumentException("TransferAmount cannot be less zero");
+                this.transferAmount = transferAmount;
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
 
-    public void Transfer(User sender, User recipient, double TransferAmount) throws IllegalArgumentException {
-        try {
-            if (sender.getBalance() - TransferAmount >= 0) {
-                sender.setBalance(sender.getBalance() - TransferAmount);
-                recipient.setBalance(recipient.getBalance() + TransferAmount);
-            } else {
-                throw new IllegalArgumentException("Sender balance less TransferAmount");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
-        }
+    public void initTransaction(User sender, User recipient, double transferAmount) {
+        sender.setBalance(sender.getBalance() - transferAmount);
+        recipient.setBalance(recipient.getBalance() + transferAmount);
     }
+
 }
-
-
-
-
-
