@@ -76,5 +76,8 @@ public class Transaction {
         sender.setBalance(sender.getBalance() - transferAmount);
         recipient.setBalance(recipient.getBalance() + transferAmount);
     }
-
+    @Override
+    public String toString() {
+        return "Transaction {Sender=" + sender.getName() + ", recipient='" + recipient.getName() + ", amount=" + getTransferAmount() + "'}";
+    }
 }

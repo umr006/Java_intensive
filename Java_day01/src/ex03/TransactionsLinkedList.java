@@ -39,7 +39,7 @@ public class TransactionsLinkedList implements TransactionsList {
 
     public void removeTransactionById(UUID id) {
         boolean isFound = false;
-        for (nodeList i = currentNode; i.nodeListPrev != null; ) {
+        for (nodeList i = currentNode; i != null; ) {
             if (i.transaction.getId() == id) {
                 isFound = true;
                 if (i.nodeListPrev != null && i.nodeListNext != null) {
@@ -65,11 +65,11 @@ public class TransactionsLinkedList implements TransactionsList {
     public Transaction[] toArray() {
         Transaction[] arrayTransaction = new Transaction[cntTransaction];
         nodeList tmpCurrentNode = currentNode;
-        int i = 0;
-        while(tmpCurrentNode.nodeListPrev != null) {
+        int i = cntTransaction - 1;
+        while(tmpCurrentNode != null) {
             arrayTransaction[i] = tmpCurrentNode.transaction;
             tmpCurrentNode = tmpCurrentNode.nodeListPrev;
-            i++;
+            i--;
         }
         return arrayTransaction;
     }
