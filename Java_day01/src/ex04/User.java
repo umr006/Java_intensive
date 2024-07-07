@@ -12,12 +12,12 @@ public class User {
 
     }
 
-    public User(String name, double balance) throws IllegalArgumentException {
+    public User(String name, double balance) throws IllegalTransactionException {
         setId();
         setName(name);
         try {
             setBalance(balance);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalTransactionException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -42,9 +42,9 @@ public class User {
         return balance;
     }
 
-    public void setBalance(double balance) throws IllegalArgumentException {
+    public void setBalance(double balance) throws IllegalTransactionException {
         if (balance < 0) {
-            throw new IllegalArgumentException("Balance cannot be less zero!");
+            throw new IllegalTransactionException("Balance cannot be less zero!");
         }
         this.balance = balance;
     }
@@ -63,6 +63,10 @@ public class User {
 
     public TransactionsLinkedList getList() {
         return listOfUsertTransactions;
+    }
+
+    public Transaction[] userTransactionToArray() {
+        return listOfUsertTransactions.toArray();
     }
 
     @Override

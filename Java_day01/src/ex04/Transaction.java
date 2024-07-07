@@ -15,13 +15,18 @@ public class Transaction {
         DEBIT
     }
 
+    @Override
+    public String toString() {
+        return "Transaction {id=" + id + ", sender='" + sender +  ", recipient " + recipient + "transferAmount" + transferAmount +  ", type=" + type + "'}";
+    }
+
     public Transaction(User sender, User recipient, transferCategory type, double transferAmount) {
         setId();
         setRecipient(recipient);
         setSender(sender);
         setType(type);
         setTransferAmount(transferAmount);
-        initTransaction(sender, recipient, transferAmount);
+        initTransaction(sender, recipient, type, transferAmount);
     }
     public Transaction(UUID id, User sender, User recipient, transferCategory type, double transferAmount) {
         setId(id);
@@ -29,7 +34,7 @@ public class Transaction {
         setSender(sender);
         setType(type);
         setTransferAmount(transferAmount);
-        initTransaction(sender, recipient, transferAmount);
+        initTransaction(sender, recipient, type, transferAmount);
     }
 
     public UUID getId() {
@@ -85,9 +90,15 @@ public class Transaction {
         }
     }
 
-    public void initTransaction(User sender, User recipient, double transferAmount) {
-        sender.setBalance(sender.getBalance() - transferAmount);
-        recipient.setBalance(recipient.getBalance() + transferAmount);
+    private void initTransaction(User sender, User recipient, transferCategory type, double amount) {
+        if (sender.getBalance() >= amount) {
+            if (type == transferCategory.CREDIT)
+                sender.setBalance(sender.getBalance() + amount);
+            else if (type == transferCategory.DEBIT)
+                recipient.setBalance(recipient.getBalance() + amount);
+        } else {
+            throw new IllegalArgumentException("The sender does not have enough funds");
+        }
     }
 
 }
