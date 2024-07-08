@@ -69,4 +69,8 @@ public class TransactionsLinkedList implements TransactionsList {
         }
         return arrayTransaction;
     }
+    public int numberTransaction() {
+        return cntTransaction;
+    }
+
 }
