@@ -60,4 +60,8 @@ public class TransactionsService {
         }
         return incorrectTransactionsList.toArray();
     }
+
+    public int NumberOfUser() {
+        return usersArrayTransactionsService.retrieveNumberOfUsers();
+    }
 }
