@@ -7,12 +7,11 @@ public class User {
     private int id;
     private String name;
     private double balance;
-    private TransactionsLinkedList listOfUsertTransactions = new TransactionsLinkedList();
+    public TransactionsLinkedList listOfUsertTransactions = new TransactionsLinkedList();
 
     public User() {
 
     }
-
     public User(String name, double balance) throws IllegalTransactionException {
         setId();
         setName(name);
