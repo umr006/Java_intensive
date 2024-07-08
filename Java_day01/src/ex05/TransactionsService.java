@@ -10,6 +10,12 @@ public class TransactionsService {
         usersArrayTransactionsService.addUser(newUser);
     }
 
+    public int addUserInArray(String name, int balance) {
+        User newUser = new User(name, balance);
+        usersArrayTransactionsService.addUser(newUser);
+        return newUser.getId();
+    }
+
     public double receiveUserBalance(User user) {
         return user.getBalance();
     }
@@ -29,5 +35,29 @@ public class TransactionsService {
 
     public void removeUserTransaction(UUID transactionId, int userId) {
         usersArrayTransactionsService.retrieveUserById(userId).removeTransactionInListById(transactionId);
+    }
+
+    public Transaction[] CheckValidTransactions(User user) {
+        TransactionsLinkedList incorrectTransactionsList = new TransactionsLinkedList();
+        Transaction[] userTransactions = user.getList().toArray();
+
+        for (int i = 0; i < user.listOfUsertTransactions.numberTransaction(); i++) {
+            boolean isFound = false;
+
+            Transaction[] RecipientTransactions = userTransactions[i].getRecipient().getList().toArray();
+            int cntSecondTransaction = userTransactions[i].getRecipient().listOfUsertTransactions.cntTransaction;
+
+            for (int j = 0; j < cntSecondTransaction; j++) {
+                if (userTransactions[i].getId() == RecipientTransactions[j].getId()) {
+                    isFound = true;
+                    break;
+                }
+            }
+
+            if(!isFound) {
+                incorrectTransactionsList.addTransaction(userTransactions[i]);
+            }
+        }
+        return incorrectTransactionsList.toArray();
     }
 }
