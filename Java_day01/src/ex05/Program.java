@@ -1,4 +1,4 @@
-package ex04;
+package ex05;
 
 
 public class Program {
@@ -28,5 +28,6 @@ public class Program {
         System.out.println(array[1]);
         System.out.println(array1[0]);
         System.out.println(array1[1]);
+        System.out.println("ex05");
     }
 }
