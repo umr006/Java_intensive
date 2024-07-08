@@ -31,7 +31,8 @@ public class Program {
         try {
             String name = in.next();
             int balance = in.nextInt();
-            System.out.println("User with id = " + service.addUserInArray(name, balance) + "added");
+            service.addUserInArray(name, balance);
+            System.out.println("User with id = " + service.usersArrayTransactionsService.retrieveNumberOfUsers() + "added");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -39,7 +40,11 @@ public class Program {
 
 
     public static void main(String[] args) {
+        String[] newArgs = {"--profile=dev"};
+        args = newArgs;
         int mode = 0;
+
+        System.out.println(args[0]);
 
         if (args[0].equals("--profile=dev"))
             mode = 1;
