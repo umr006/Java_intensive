@@ -31,7 +31,9 @@ public class Program {
         try {
             String name = in.next();
             int balance = in.nextInt();
-            service.addUserInArray(name, balance);
+            User newUser = new User(name, balance);
+            service.addUserInArray(newUser);
+            System.out.println(service.NumberOfUser());
             System.out.println("User with id = " + service.NumberOfUser() + "added");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -44,50 +46,50 @@ public class Program {
         args = newArgs;
         int mode = 0;
 
-        System.out.println(args[0]);
+//        System.out.println(args[0]);
+//
+//        User umr = new User("umr", 1000);
+//
+//        service.addUserInArray(umr);
+//        System.out.println(service.NumberOfUser());
+//        service.NumberOfUser();
 
-        User umr = new User("umr", 1000);
+        if (args[0].equals("--profile=dev"))
+            mode = 1;
+        else if (args[0].equals("--profile=production"))
+            mode = 2;
+        else {
+            System.out.println("Argument Error!");
+            System.exit(1);
+        }
+        while (true) {
+            if (mode == 1) {
+                devMenu();
+            } else {
+                productionMenu();
+            }
 
-        service.addUserInArray(umr);
-        System.out.println(service.NumberOfUser());
-        service.NumberOfUser();
+            int choise = in.nextInt();
 
-//        if (args[0].equals("--profile=dev"))
-//            mode = 1;
-//        else if (args[0].equals("--profile=production"))
-//            mode = 2;
-//        else {
-//            System.out.println("Argument Error!");
-//            System.exit(1);
-//        }
-//        while (true) {
-//            if (mode == 1) {
-//                devMenu();
-//            } else {
-//                productionMenu();
-//            }
-//
-//            int choise = in.nextInt();
-//
-//            if(choise == 7 && mode == 1 || choise == 5 && mode == 2) {
-//                break;
-//            } else if (choise == 1) {
-//                addUser();
-//            } else if (choise == 2) {
-//
-//            } else if (choise == 3) {
-//
-//            } else if (choise == 4) {
-//
-//            } else if (choise == 5) {
-//
-//            } else if (choise == 6) {
-//
-//            } else if (choise == 7) {
-//
-//            } else {
-//                System.out.println("Error"); //to be
-//            }
-//        }
+            if(choise == 7 && mode == 1 || choise == 5 && mode == 2) {
+                break;
+            } else if (choise == 1) {
+                addUser();
+            } else if (choise == 2) {
+
+            } else if (choise == 3) {
+
+            } else if (choise == 4) {
+
+            } else if (choise == 5) {
+
+            } else if (choise == 6) {
+
+            } else if (choise == 7) {
+
+            } else {
+                System.out.println("Error"); //to be
+            }
+        }
     }
 }
