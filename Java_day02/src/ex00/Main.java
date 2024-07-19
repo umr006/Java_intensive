@@ -35,7 +35,7 @@ public class Main {
         FileInputStream fis = null;
         InputStreamReader isr = null;
         try {
-            fis = new FileInputStream("Java_day02/src/signatures.txt");
+            fis = new FileInputStream("Java_day02/src/ex00/signatures.txt");
             isr = new InputStreamReader(fis);
             int ch;
             while ((ch = isr.read()) != -1) {
