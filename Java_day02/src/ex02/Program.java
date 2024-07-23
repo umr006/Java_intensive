@@ -24,7 +24,7 @@ public class Program {
                             commandMV();
                             break;
                         case "cd":
-                            //commandCD();
+                            commandCD();
                             break;
                         default:
                             System.out.println("Unknown command");
@@ -36,6 +36,16 @@ public class Program {
         }
     }
 
+    public static void commandCD() throws IOException {
+        String[] currentCommandSplit = currentCommand.split(" ");
+        String newCurrentFolder = currentFolder + "/" + currentCommandSplit[1];
+        File newCurrentFolderFile = new File(newCurrentFolder);
+        if (newCurrentFolderFile.isDirectory() && newCurrentFolderFile.exists()) {
+            currentFolder = newCurrentFolder;
+        } else {
+            throw new IOException("cd: no such file or directory");
+        }
+    }
     public static void commandMV() throws IOException {
         String[] currentCommandSplit = currentCommand.split(" ");
         String sourcePath = currentCommandSplit[1];
@@ -44,7 +54,7 @@ public class Program {
         File sourceFile = new File(sourcePath);
         File distanationFile = new File(distanationPath);
 
-        if (sourceFile.isFile() && sourceFile.exists()) {
+        if ((sourceFile.isFile() || sourceFile.isDirectory()) && sourceFile.exists()) {
             if (!sourceFile.renameTo(distanationFile)) throw new IOException("mv: Failed with an error");
         } else {
             throw new IOException("mv: No such file or directory");
