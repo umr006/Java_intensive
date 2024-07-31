@@ -2,7 +2,49 @@ package ex01;
 
 public class Program {
 
-    
+    private static final Object monitor = new Object();
+    public static class threadPrint implements Runnable {
+
+        private int cnt = 0;
+        private String str = "";
+
+        public threadPrint(String str, int cnt) {
+            this.cnt = cnt;
+            this.str = str;
+        }
 
 
+        public static void print(String str, int cnt) {
+            synchronized (monitor) {
+                monitor.notify();
+                for (int i = 0; i < cnt; i++) {
+                    System.out.println(str);
+                    try {
+                        monitor.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    monitor.notify();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            print(str, cnt);
+        }
+    }
+
+    public static void main(String[] args) {
+        //int cnt = Integer.parseInt(args[0].substring(8));
+        int cnt = 50;
+        Thread egg = new Thread(new threadPrint("Egg", cnt));
+        Thread hen = new Thread(new threadPrint("Hen", cnt));
+
+        egg.start();
+        hen.start();
+
+        //threadPrint.print("Human", cnt);
+
+    }
 }
