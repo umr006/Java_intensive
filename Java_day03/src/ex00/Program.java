@@ -24,8 +24,8 @@ public class Program {
     }
 
     public static void main(String[] args) {
-        int cnt = Integer.parseInt(args[0].substring(8));
-
+        //int cnt = Integer.parseInt(args[0].substring(8));
+        int cnt = 50;
         Thread egg = new Thread(new threadPrint("Egg", cnt));
         Thread hen = new Thread(new threadPrint("Hen", cnt));
 
