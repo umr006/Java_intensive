@@ -11,15 +11,15 @@ public class Program {
     private static List<Thread> threadList = new ArrayList<>();
 
     public static void fillArr() {
-        for (int i = 0; i < arrLen; i++) {
-            arr[i] = 1;
+        for (int i = 0, j = 1; i < arrLen; i++) {
+            arr[i] = j++;
         }
     }
 
-    public static long takeSum(int[] arrTakeSum) {
+    public static long takeSum(int startIdx, int endIdx) {
         long res = 0;
-        for (int i : arrTakeSum) {
-            res += i;
+        for (int i = startIdx; i < endIdx; i++) {
+            res += arr[i];
         }
         return res;
     }
@@ -37,10 +37,7 @@ public class Program {
 
         @Override
         public void run() {
-            //res = takeSum(array);
-            for (int i = startIdx; i < endIdx; i++) {
-                res += arr[i];
-            }
+            res = takeSum(startIdx, endIdx);
             sumThread += res;
             System.out.println(Thread.currentThread().getName() + ": from " + startIdx + " to " + endIdx + " sum is " + res);
         }
@@ -60,11 +57,11 @@ public class Program {
     }
 
     public static void main(String[] args) {
-        arrLen = 100000000;
-        cntThread = 10;
+        arrLen = 13;
+        cntThread = 3;
         arr = new int[arrLen];
         fillArr();
-        System.out.println("Sum: " + takeSum(arr));
+        System.out.println("Sum: " + takeSum(0, arrLen));
         threadStart();
         for (Thread i : threadList) {
             i.start();
@@ -76,7 +73,6 @@ public class Program {
                 throw new RuntimeException(e);
             }
         }
-
         System.out.println("Sum by Threads: " + sumThread);
     }
 }
