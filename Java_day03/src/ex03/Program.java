@@ -49,7 +49,7 @@ public class Program {
             Files.copy(in, Paths.get(OUTPUT_DIR + fileName), StandardCopyOption.REPLACE_EXISTING);
             System.out.println(Thread.currentThread().getName() + " finush download file " + fileURL);
         } catch (IOException e) {
-            System.err.println("Error download file " + fileURL + ": " + e.getMessage());
+            System.err.println("File upload error " + fileURL + ": " + e.getMessage());
         }
     }
 
