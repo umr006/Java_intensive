@@ -8,17 +8,18 @@ public class Program {
     private static int cntThread = 0;
     private static long sumThread = 0;
     private static int[] arr;
+    private static List<Thread> threadList = new ArrayList<>();
 
     public static void fillArr() {
-        for (int i = 0; i < arrLen; i++) {
-            arr[i] = 1;
+        for (int i = 0, j = 1; i < arrLen; i++) {
+            arr[i] = j++;
         }
     }
 
-    public static long takeSum(int[] arrTakeSum) {
+    public static long takeSum(int startIdx, int endIdx) {
         long res = 0;
-        for (int i : arrTakeSum) {
-            res += i;
+        for (int i = startIdx; i < endIdx; i++) {
+            res += arr[i];
         }
         return res;
     }
@@ -36,16 +37,42 @@ public class Program {
 
         @Override
         public void run() {
-            res = takeSum(array);
+            res = takeSum(startIdx, endIdx);
             sumThread += res;
+            System.out.println(Thread.currentThread().getName() + ": from " + startIdx + " to " + endIdx + " sum is " + res);
+        }
+    }
+
+
+    public static void threadStart() {
+        int startIdx = 0, endIdx = 0;
+        int step = arrLen / cntThread;
+
+        for (int i = 0; i < cntThread; i++) {
+            endIdx = (i == cntThread - 1 ? arrLen : startIdx + step);
+            Thread newThread = new Thread(new calcThread(startIdx, endIdx, arr));
+            threadList.add(newThread);
+            startIdx = endIdx;
         }
     }
 
     public static void main(String[] args) {
-        int arrLen = 13;
+        arrLen = 13;
         cntThread = 3;
         arr = new int[arrLen];
         fillArr();
-        System.out.println("Sum: " + takeSum(arr));
+        System.out.println("Sum: " + takeSum(0, arrLen));
+        threadStart();
+        for (Thread i : threadList) {
+            i.start();
+        }
+        for (Thread i : threadList) {
+            try {
+                i.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        System.out.println("Sum by Threads: " + sumThread);
     }
 }
