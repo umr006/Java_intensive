@@ -1,4 +1,4 @@
-package ex00.ImagesToChar.src.java.edu.school21.printer.logic;
+package edu.school21.printer.logic;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +10,7 @@ public class ImageToChar {
     private char black;
     private char white;
     private BufferedImage bufferedImage;
-    private static String PATH_TO_FILE = "Java_day04/src/it.bmp";
+    private static String PATH_TO_FILE = "/home/umr006/Java_intensive/Java_day04/src/ex00/it.bmp";
     public ImageToChar(char black, char white) {
         this.black = black;
         this.white = white;
@@ -34,8 +34,8 @@ public class ImageToChar {
                 } else {
                     System.out.print(white);
                 }
-                System.out.println();
             }
+            System.out.println();
         }
     }
 }
