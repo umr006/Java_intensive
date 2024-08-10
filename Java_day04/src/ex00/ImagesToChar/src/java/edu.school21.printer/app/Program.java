@@ -3,7 +3,8 @@ import edu.school21.printer.logic.ImageToChar;
 
 public class Program {
     public static void main(String[] args) {
-        ImageToChar imageToChar = new ImageToChar('0', '.');
+        String path = args[0];
+        ImageToChar imageToChar = new ImageToChar('0', '.', path);
         imageToChar.printImage();
     }
 }

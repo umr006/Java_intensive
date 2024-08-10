@@ -5,15 +5,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class ImageToChar {
     private char black;
     private char white;
     private BufferedImage bufferedImage;
-    private static String PATH_TO_FILE = "/home/umr006/Java_intensive/Java_day04/src/ex00/it.bmp";
-    public ImageToChar(char black, char white) {
+    private static String PATH_TO_FILE = "";
+    public ImageToChar(char black, char white, String path) {
         this.black = black;
         this.white = white;
+        PATH_TO_FILE = path;
     }
 
     public void printImage() {
