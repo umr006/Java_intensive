@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.21school.printer</groupId>
+  <artifactId>ImagetoCharEX00</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>ImagetoCharEX00</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+
+    <dependency>
+      <groupId>com.diogonunes</groupId>
+      <artifactId>JCDP</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+
+    <!-- JCommander dependency (если используется в проекте) -->
+    <dependency>
+      <groupId>com.beust</groupId>
+      <artifactId>jcommander</artifactId>
+      <version>1.72</version>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <maven.compiler.source>18</maven.compiler.source>  <!-- или используйте актуальную версию вашей Java -->
+    <maven.compiler.target>18</maven.compiler.target>  <!-- или используйте актуальную версию вашей Java -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+
+</project>
