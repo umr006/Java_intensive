@@ -14,13 +14,19 @@ public class ImageToChar {
     private char white;
     private BufferedImage bufferedImage;
     //private static String PATH_TO_FILE = "/Users/new/Desktop/Java_intensive/Java_day04/src/ex01/ImagesToChar/src/resources/it.bmp";
-    private static String PATH_TO_FILE = "/Users/new/Desktop/Java_intensive/Java_day04/src/ex02/ImageToChar/src/resources/it.bmp";
+    private static String PATH_TO_FILE = "/home/umr006/Java_intensive/Java_day04/src/ex02/ImageToChar/src/resources/it.bmp";
     public ImageToChar(char black, char white) {
         this.black = black;
         this.white = white;
     }
 
     public void printImage() {
+//        String osName = System.getProperty("os.name").toLowerCase();
+//        if (osName == "linux") {
+//            PATH_TO_FILE = "/home/umr006/Java_intensive/Java_day04/src/ex02/ImageToChar/src/resources/it.bmp";
+//        } else {
+//            PATH_TO_FILE = "/Users/new/Desktop/Java_intensive/Java_day04/src/ex02/ImageToChar/src/resources/it.bmp";
+//        }
         try {
             bufferedImage = ImageIO.read(new File(PATH_TO_FILE));
         } catch (IOException e) {

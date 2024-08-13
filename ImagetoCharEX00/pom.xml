@@ -7,8 +7,21 @@
   <version>1.0-SNAPSHOT</version>
   <name>ImagetoCharEX00</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <configuration>
+          <mainClass>edu.school21.printer.app.Program</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
     <dependency>
       <groupId>com.diogonunes</groupId>
       <artifactId>JCDP</artifactId>
@@ -24,10 +37,9 @@
   </dependencies>
 
   <properties>
-    <maven.compiler.source>18</maven.compiler.source>  <!-- или используйте актуальную версию вашей Java -->
-    <maven.compiler.target>18</maven.compiler.target>  <!-- или используйте актуальную версию вашей Java -->
+    <maven.compiler.source>17</maven.compiler.source>  <!-- или используйте актуальную версию вашей Java -->
+    <maven.compiler.target>17</maven.compiler.target>  <!-- или используйте актуальную версию вашей Java -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
 
 </project>
