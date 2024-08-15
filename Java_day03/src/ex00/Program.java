@@ -2,7 +2,6 @@ package ex00;
 
 public class Program {
     public static class threadPrint implements Runnable {
-
         private int cnt = 0;
         private String str = "";
 
